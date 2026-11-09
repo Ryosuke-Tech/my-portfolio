@@ -7,153 +7,524 @@
 <meta name="description" content="O.Rのポートフォリオです。ネットワーク運用監視、TV会議システムの導入・構築、データベース運用の経験をまとめています。">
 <style>
 :root {
-  color-scheme: light dark;
-  --bg: #f5f7fa; --surface: #fff; --ink: #16202e; --muted: #55606e;
-  --line: #d9dfe7; --accent: #0b6e99; --soft: #e1f1f7;
-  --glow1: rgba(11,110,153,.16); --glow2: rgba(46,160,140,.12);
-  --grid: rgba(22,32,46,.05); --dot: rgba(11,110,153,.38);
-  --bar: rgba(255,255,255,.82); --shadow: 0 1px 2px rgba(16,24,40,.05), 0 10px 28px rgba(16,24,40,.06);
+  --bg: #f5f7fa;
+  --surface: #ffffff;
+  --ink: #16202e;
+  --muted: #55606e;
+  --line: #d9dfe7;
+  --accent: #0b6e99;
+  --soft: #e1f1f7;
+  --todo: #fff1c7;
+  --todo-ink: #6b4b00;
+  --glow1: rgba(11, 110, 153, 0.16);
+  --glow2: rgba(46, 160, 140, 0.12);
+  --grid: rgba(22, 32, 46, 0.05);
+  --dot: rgba(11, 110, 153, 0.38);
+  --bar: rgba(255, 255, 255, 0.82);
+  --shadow: 0 1px 2px rgba(16, 24, 40, 0.05), 0 10px 28px rgba(16, 24, 40, 0.06);
+  color-scheme: light;
 }
+
 @media (prefers-color-scheme: dark) {
-  :root {
-    --bg: #0f1620; --surface: #17212e; --ink: #e8edf3; --muted: #9aa7b6;
-    --line: #2b3847; --accent: #4cc2e8; --soft: #12303c;
-    --glow1: rgba(76,194,232,.16); --glow2: rgba(70,110,255,.14);
-    --grid: rgba(255,255,255,.045); --dot: rgba(76,194,232,.5);
-    --bar: rgba(23,33,46,.8); --shadow: 0 10px 28px rgba(0,0,0,.28);
+  :root:not([data-theme="light"]) {
+    --bg: #0f1620;
+    --surface: #17212e;
+    --ink: #e8edf3;
+    --muted: #9aa7b6;
+    --line: #2b3847;
+    --accent: #4cc2e8;
+    --soft: #12303c;
+    --todo: #3b3115;
+    --todo-ink: #ffd37a;
+    --glow1: rgba(76, 194, 232, 0.16);
+    --glow2: rgba(70, 110, 255, 0.14);
+    --grid: rgba(255, 255, 255, 0.045);
+    --dot: rgba(76, 194, 232, 0.5);
+    --bar: rgba(23, 33, 46, 0.8);
+    --shadow: 0 10px 28px rgba(0, 0, 0, 0.28);
+    color-scheme: dark;
   }
 }
-* { box-sizing: border-box; }
-html { scroll-padding-top: 64px; -webkit-text-size-adjust: 100%; }
+
+:root[data-theme="dark"] {
+  --bg: #0f1620;
+  --surface: #17212e;
+  --ink: #e8edf3;
+  --muted: #9aa7b6;
+  --line: #2b3847;
+  --accent: #4cc2e8;
+  --soft: #12303c;
+  --todo: #3b3115;
+  --todo-ink: #ffd37a;
+  --glow1: rgba(76, 194, 232, 0.16);
+  --glow2: rgba(70, 110, 255, 0.14);
+  --grid: rgba(255, 255, 255, 0.045);
+  --dot: rgba(76, 194, 232, 0.5);
+  --bar: rgba(23, 33, 46, 0.8);
+  --shadow: 0 10px 28px rgba(0, 0, 0, 0.28);
+  color-scheme: dark;
+}
+
+:root[data-theme="light"] {
+  color-scheme: light;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-padding-top: calc(64px + env(safe-area-inset-top, 0px));
+  -webkit-text-size-adjust: 100%;
+}
+
 body {
-  margin: 0; background: var(--bg); color: var(--ink); line-height: 1.8;
-  font-family: "Hiragino Sans","Noto Sans JP","Yu Gothic UI","Meiryo",sans-serif;
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  line-height: 1.8;
+  font-family: "Hiragino Sans", "Noto Sans JP", "Yu Gothic UI", "Meiryo", sans-serif;
   font-size: 16px;
+  padding: 0 env(safe-area-inset-right, 0px) env(safe-area-inset-bottom, 0px) env(safe-area-inset-left, 0px);
 }
-a { color: var(--accent); }
-a:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; }
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0 0 auto;
+  height: env(safe-area-inset-top, 0px);
+  z-index: 10;
+  background: var(--bar);
+}
+
+a {
+  color: var(--accent);
+}
+
+a:focus-visible,
+button:focus-visible {
+  outline: 3px solid var(--accent);
+  outline-offset: 3px;
+}
+
 .bg {
-  position: fixed; inset: 0; z-index: -1; pointer-events: none;
-  background: radial-gradient(55% 45% at 90% 0%,var(--glow1),transparent 70%),
-              radial-gradient(45% 40% at 0% 40%,var(--glow2),transparent 70%),var(--bg);
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    radial-gradient(55% 45% at 90% 0%, var(--glow1), transparent 70%),
+    radial-gradient(45% 40% at 0% 40%, var(--glow2), transparent 70%),
+    var(--bg);
 }
+
 .bg::before {
-  content: ""; position: absolute; inset: 0;
-  background-image: radial-gradient(circle,var(--dot) 1.5px,transparent 1.8px),
-    linear-gradient(var(--grid) 1px,transparent 1px),
-    linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    radial-gradient(circle, var(--dot) 1.5px, transparent 1.8px),
+    linear-gradient(var(--grid) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid) 1px, transparent 1px);
   background-size: 56px 56px;
-  -webkit-mask-image: radial-gradient(ellipse 90% 70% at 50% 0%,#000 0%,transparent 80%);
-  mask-image: radial-gradient(ellipse 90% 70% at 50% 0%,#000 0%,transparent 80%);
+  -webkit-mask-image: radial-gradient(ellipse 90% 70% at 50% 0%, #000 0%, transparent 80%);
+  mask-image: radial-gradient(ellipse 90% 70% at 50% 0%, #000 0%, transparent 80%);
 }
+
 header {
-  position: sticky; top: 0; z-index: 2; background: var(--bar);
-  border-bottom: 1px solid var(--line); backdrop-filter: blur(12px);
+  position: sticky;
+  top: env(safe-area-inset-top, 0px);
+  z-index: 11;
+  background: var(--bar);
+  border-bottom: 1px solid var(--line);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
 }
+
 .bar {
-  display: flex; align-items: center; justify-content: space-between; gap: 16px;
-  max-width: 960px; margin: auto; padding: 8px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 8px 16px;
 }
-.brand { font-weight: 700; white-space: nowrap; }
-nav { display: flex; gap: 4px; overflow-x: auto; }
+
+.brand {
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+nav {
+  display: flex;
+  gap: 4px;
+  overflow-x: auto;
+}
+
 nav a {
-  padding: 6px 12px; border-radius: 8px; color: var(--ink);
-  text-decoration: none; white-space: nowrap;
+  padding: 6px 12px;
+  border-radius: 8px;
+  color: var(--ink);
+  text-decoration: none;
+  white-space: nowrap;
 }
-nav a:hover { background: var(--soft); }
-main { max-width: 960px; margin: auto; padding: 0 16px 56px; }
-section { padding-top: 56px; }
-h1 { margin: 0 0 8px; font-size: clamp(1.7rem,5vw,2.4rem); line-height: 1.3; }
-h2 { display: flex; align-items: center; gap: 14px; margin: 0 0 20px; font-size: 1.4rem; }
-h2::after { content: ""; flex: 1; height: 1px; background: linear-gradient(90deg,var(--line),transparent); }
-h3 { margin: 0 0 6px; font-size: 1.05rem; }
-p { max-width: 40em; margin: 0 0 12px; }
-.hero { display: grid; grid-template-columns: 160px 1fr; gap: 28px; align-items: start; padding-top: 40px; }
+
+nav a:hover {
+  background: var(--soft);
+}
+
+main {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 0 16px 56px;
+}
+
+section {
+  padding-top: 56px;
+}
+
+h1 {
+  margin: 0 0 8px;
+  font-size: clamp(1.7rem, 5vw, 2.4rem);
+  line-height: 1.3;
+}
+
+h2 {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin: 0 0 20px;
+  font-size: 1.4rem;
+}
+
+h2::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, var(--line), transparent);
+}
+
+h3 {
+  margin: 0 0 6px;
+  font-size: 1.05rem;
+}
+
+p {
+  max-width: 40em;
+  margin: 0 0 12px;
+}
+
+.hero {
+  display: grid;
+  grid-template-columns: 160px 1fr;
+  gap: 28px;
+  align-items: start;
+  padding-top: 40px;
+}
+
 .avatar {
-  display: grid; place-items: center; width: 160px; height: 160px;
-  border-radius: 50%; background: var(--soft); color: var(--accent);
-  font-size: 2rem; font-weight: 700; box-shadow: 0 0 0 6px var(--soft),0 0 0 7px var(--line);
+  display: grid;
+  place-items: center;
+  width: 160px;
+  height: 160px;
+  border-radius: 50%;
+  background: var(--soft);
+  color: var(--accent);
+  font-size: 2rem;
+  font-weight: 700;
+  box-shadow: 0 0 0 6px var(--soft), 0 0 0 7px var(--line);
 }
-.role { margin-bottom: 20px; color: var(--accent); font-weight: 700; }
-.facts { max-width: 40em; margin: 16px 0 0; padding-left: 1.2em; }
-.facts li { margin-bottom: 4px; }
-.group { margin-bottom: 28px; }
-.group > p { color: var(--muted); font-size: .92rem; }
+
+.role {
+  margin: 0 0 20px;
+  color: var(--accent);
+  font-weight: 700;
+}
+
+.facts {
+  max-width: 40em;
+  margin: 16px 0 0;
+  padding-left: 1.2em;
+}
+
+.facts li {
+  margin-bottom: 4px;
+}
+
+.group {
+  margin-bottom: 28px;
+}
+
+.group > p {
+  color: var(--muted);
+  font-size: 0.92rem;
+}
+
 .skills {
-  margin: 0; padding: 0; list-style: none; border: 1px solid var(--line);
-  border-radius: 12px; background: var(--surface); box-shadow: var(--shadow);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: var(--surface);
+  box-shadow: var(--shadow);
 }
+
 .skills li {
-  display: grid; grid-template-columns: minmax(8em,1fr) 7em 1.4fr;
-  gap: 12px; align-items: center; padding: 10px 16px; border-bottom: 1px solid var(--line);
+  display: grid;
+  grid-template-columns: minmax(8em, 1fr) 7em 1.4fr;
+  gap: 12px;
+  align-items: center;
+  padding: 10px 16px;
+  border-bottom: 1px solid var(--line);
 }
-.skills li:last-child { border-bottom: 0; }
-.term { color: var(--muted); font-size: .9rem; text-align: right; }
-.meter { height: 8px; border-radius: 4px; background: var(--soft); overflow: hidden; }
-.meter i { display: block; width: var(--w); height: 100%; background: var(--accent); }
-.na { color: var(--muted); font-size: .85rem; }
-.jobs { margin: 0; padding: 0 0 0 20px; list-style: none; border-left: 2px solid var(--line); }
-.job { position: relative; margin-bottom: 20px; }
+
+.skills li:last-child {
+  border-bottom: 0;
+}
+
+.term {
+  color: var(--muted);
+  font-size: 0.9rem;
+  text-align: right;
+}
+
+.meter {
+  height: 8px;
+  border-radius: 4px;
+  background: var(--soft);
+  overflow: hidden;
+}
+
+.meter i {
+  display: block;
+  width: var(--w);
+  height: 100%;
+  background: var(--accent);
+}
+
+.na {
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+
+.jobs {
+  position: relative;
+  margin: 0;
+  padding: 0 0 0 20px;
+  list-style: none;
+  border-left: 2px solid var(--line);
+}
+
+.job {
+  position: relative;
+  margin-bottom: 20px;
+}
+
 .job::before {
-  content: ""; position: absolute; left: -27px; top: 22px; width: 12px; height: 12px;
-  border: 2px solid var(--bg); border-radius: 50%; background: var(--accent);
+  content: "";
+  position: absolute;
+  left: -27px;
+  top: 22px;
+  width: 12px;
+  height: 12px;
+  border: 2px solid var(--bg);
+  border-radius: 50%;
+  background: var(--accent);
 }
-.job > div, details.job-detail {
-  border: 1px solid var(--line); border-radius: 12px; background: var(--surface);
+
+.job > div,
+details.job-detail {
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: var(--surface);
 }
-.job > div { padding: 16px 20px; }
-.period { margin-bottom: 4px; color: var(--accent); font-size: .92rem; font-weight: 700; }
-.meta { margin-bottom: 8px; color: var(--muted); font-size: .88rem; }
-.job p { max-width: none; font-size: .95rem; }
-details.job-detail { margin-top: 12px; padding: 8px 14px; background: var(--bg); box-shadow: var(--shadow); }
-details summary { cursor: pointer; font-size: .92rem; font-weight: 600; }
-details ul { margin: 8px 0 4px; padding-left: 1.2em; font-size: .92rem; }
-.chips { display: flex; flex-wrap: wrap; gap: 6px; margin: 8px 0 0; padding: 0; list-style: none; }
+
+.job > div {
+  padding: 16px 20px;
+}
+
+.period {
+  margin: 0 0 4px;
+  color: var(--accent);
+  font-size: 0.92rem;
+  font-weight: 700;
+}
+
+.meta {
+  margin: 0 0 8px;
+  color: var(--muted);
+  font-size: 0.88rem;
+}
+
+.job p {
+  max-width: none;
+  font-size: 0.95rem;
+}
+
+details.job-detail {
+  margin-top: 12px;
+  padding: 8px 14px;
+  background: var(--bg);
+  box-shadow: var(--shadow);
+}
+
+details summary {
+  cursor: pointer;
+  font-size: 0.92rem;
+  font-weight: 600;
+}
+
+details ul {
+  margin: 8px 0 4px;
+  padding-left: 1.2em;
+  font-size: 0.92rem;
+}
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 8px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
 .chips li {
-  padding: 1px 10px; border: 1px solid var(--line); border-radius: 999px;
-  background: var(--surface); font-size: .8rem;
+  padding: 1px 10px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--surface);
+  font-size: 0.8rem;
 }
-.works { display: grid; grid-template-columns: repeat(auto-fit,minmax(280px,1fr)); gap: 16px; }
+
+.works {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 16px;
+}
+
 .work {
-  overflow: hidden; border: 1px solid var(--line); border-radius: 12px;
-  background: var(--surface); box-shadow: var(--shadow);
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: var(--surface);
+  box-shadow: var(--shadow);
 }
+
 .thumb {
-  display: grid; place-items: center; min-height: 150px;
-  background: var(--soft); color: var(--muted); font-size: .85rem;
+  display: grid;
+  place-items: center;
+  min-height: 150px;
+  background: var(--soft);
+  color: var(--muted);
+  font-size: 0.85rem;
 }
-.work > div:last-child { padding: 14px 18px 18px; }
-.work p { max-width: none; font-size: .92rem; }
-.work.feature { grid-column: 1 / -1; display: grid; grid-template-columns: minmax(200px,290px) 1fr; }
+
+.work > div:last-child {
+  padding: 14px 18px 18px;
+}
+
+.work p {
+  max-width: none;
+  font-size: 0.92rem;
+}
+
+.work.feature {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: minmax(200px, 290px) 1fr;
+}
+
 .work.feature .thumb {
-  align-content: center; gap: 10px; min-height: 250px; padding: 20px;
-  background: linear-gradient(160deg,var(--soft),transparent);
+  align-content: center;
+  gap: 10px;
+  min-height: 250px;
+  padding: 20px;
+  background: linear-gradient(160deg, var(--soft), transparent);
 }
+
 .app-preview {
-  display: grid; place-items: center; width: min(100%,210px); aspect-ratio: 390 / 500;
-  padding: 20px; border: 1px solid var(--line); border-radius: 22px;
-  background: radial-gradient(circle at 75% 25%,var(--glow1),transparent 35%),var(--surface);
-  box-shadow: 0 14px 34px rgba(0,0,0,.18); text-align: center;
+  display: grid;
+  place-items: center;
+  width: min(100%, 210px);
+  aspect-ratio: 390 / 500;
+  padding: 20px;
+  border: 1px solid var(--line);
+  border-radius: 22px;
+  background:
+    radial-gradient(circle at 75% 25%, var(--glow1), transparent 35%),
+    var(--surface);
+  box-shadow: 0 14px 34px rgba(0, 0, 0, 0.18);
+  text-align: center;
 }
-.app-preview strong { display: block; color: var(--accent); font-size: 1.3rem; }
-.app-preview span { display: block; margin-top: 8px; color: var(--muted); font-size: .85rem; }
-.cap { margin: 0; color: var(--muted); font-size: .8rem; text-align: center; }
+
+.app-preview strong {
+  display: block;
+  color: var(--accent);
+  font-size: 1.3rem;
+}
+
+.app-preview span {
+  display: block;
+  margin-top: 8px;
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+
+.cap {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.8rem;
+  text-align: center;
+}
+
 footer {
-  max-width: 960px; margin: auto; padding: 24px 16px 32px;
-  border-top: 1px solid var(--line); color: var(--muted); font-size: .85rem;
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 24px 16px 32px;
+  border-top: 1px solid var(--line);
+  color: var(--muted);
+  font-size: 0.85rem;
 }
+
 @media (max-width: 640px) {
-  .hero { grid-template-columns: 1fr; gap: 16px; }
-  .avatar { width: 112px; height: 112px; margin: 7px; font-size: 1.5rem; }
-  .skills li { grid-template-columns: 1fr auto; row-gap: 4px; }
-  .skills li .meter { grid-column: 1 / -1; grid-row: 2; }
-  .brand { display: none; }
-  .work.feature { grid-template-columns: 1fr; }
+  .hero {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .avatar {
+    width: 112px;
+    height: 112px;
+    margin: 7px;
+    font-size: 1.5rem;
+  }
+
+  .skills li {
+    grid-template-columns: 1fr auto;
+    row-gap: 4px;
+  }
+
+  .skills li .meter {
+    grid-column: 1 / -1;
+    grid-row: 2;
+  }
+
+  .brand {
+    display: none;
+  }
+
+  .work.feature {
+    grid-template-columns: 1fr;
+  }
 }
 </style>
 </head>
 <body>
 <div class="bg" aria-hidden="true"></div>
+
 <header>
   <div class="bar">
     <span class="brand">O.R</span>
@@ -243,77 +614,89 @@ footer {
     <h2>業務経歴</h2>
     <p>新しい案件から順に載せています。顧客名は伏せています。</p>
     <ol class="jobs">
-      <li class="job"><div>
-        <p class="period">2026年4月〜2026年9月（6ヶ月）</p>
-        <h3>NW機器保守対応（H3C無線機器）</h3>
-        <p class="meta">チーム7名 / 全体50名 ・ Windows、Comware V7</p>
-        <p>H3Cの無線機器（Wi-Fi機器）に関する問い合わせに、1日10〜20件対応しました。障害の切り分け、設定変更、設置の案内、操作説明が対応範囲です。デモ機の貸し出しと管理、依頼に応じた無線機の設置・操作手順の勉強会の開催、Wi-Fiの電波が届く範囲を示すヒートマップの作成も担当しました。</p>
-      </div></li>
+      <li class="job">
+        <div>
+          <p class="period">2026年4月〜2026年9月（6ヶ月）</p>
+          <h3>NW機器保守対応（H3C無線機器）</h3>
+          <p class="meta">チーム7名 / 全体50名 ・ Windows、Comware V7</p>
+          <p>H3Cの無線機器（Wi-Fi機器）に関する問い合わせに、1日10〜20件対応しました。障害の切り分け、設定変更、設置の案内、操作説明が対応範囲です。デモ機の貸し出しと管理、依頼に応じた無線機の設置・操作手順の勉強会の開催、Wi-Fiの電波が届く範囲を示すヒートマップの作成も担当しました。</p>
+        </div>
+      </li>
 
-      <li class="job"><div>
-        <p class="period">2025年12月〜2026年3月（4ヶ月）</p>
-        <h3>大規模新築ビル会議室向けTV会議システムの設置</h3>
-        <p class="meta">チーム5名 / 全体10名 ・ Windows、Android</p>
-        <p>TV会議端末を250台以上設置し、ZoomとGoogle Meetで通信試験を行いました。ビルの工事に関わる家具業者や施工業者と作業日程を調整し、端末、ディスプレイ、スタンドを搬入して各会議室に設置し、通信試験までを担当しました。</p>
-      </div></li>
+      <li class="job">
+        <div>
+          <p class="period">2025年12月〜2026年3月（4ヶ月）</p>
+          <h3>大規模新築ビル会議室向けTV会議システムの設置</h3>
+          <p class="meta">チーム5名 / 全体10名 ・ Windows、Android</p>
+          <p>TV会議端末を250台以上設置し、ZoomとGoogle Meetで通信試験を行いました。ビルの工事に関わる家具業者や施工業者と作業日程を調整し、端末、ディスプレイ、スタンドを搬入して各会議室に設置し、通信試験までを担当しました。</p>
+        </div>
+      </li>
 
-      <li class="job"><div>
-        <p class="period">2025年1月〜2025年7月（7ヶ月）</p>
-        <h3>自治体向けITソリューションの運用</h3>
-        <p class="meta">チーム2名 / 全体15名 ・ SQL Server</p>
-        <p>住民情報を管理するデータベースの運用と、それを使った給付金対応を担当しました。SQLをベースにしたデータベースの更新に加え、給付金施策のときは、データベース上で対象者を審査し、振り込み通知書を発行しました。作業後は、自治体の給付金担当者に、更新内容と作業結果を説明しました。SQLに関する簡易なQA対応も担当しました。</p>
-      </div></li>
+      <li class="job">
+        <div>
+          <p class="period">2025年1月〜2025年7月（7ヶ月）</p>
+          <h3>自治体向けITソリューションの運用</h3>
+          <p class="meta">チーム2名 / 全体15名 ・ SQL Server</p>
+          <p>住民情報を管理するデータベースの運用と、それを使った給付金対応を担当しました。SQLをベースにしたデータベースの更新に加え、給付金施策のときは、データベース上で対象者を審査し、振り込み通知書を発行しました。作業後は、自治体の給付金担当者に、更新内容と作業結果を説明しました。SQLに関する簡易なQA対応も担当しました。</p>
+        </div>
+      </li>
 
-      <li class="job"><div>
-        <p class="period">2023年5月〜2024年3月（11ヶ月）</p>
-        <h3>医療系機構向けTV会議・同時翻訳システムの構築</h3>
-        <p class="meta">サブリーダー ・ チーム20名 / 全体20名 ・ Windows、Android</p>
-        <p>東京と関西の間で医薬系の相談を行うシステムです。Web会議も混ぜ、海外の顧客も参加するため、会議室に同時通訳システムを設置し、Webと会議室をつなぐハイブリッド会議を実現しました。全体の工程管理を担当し、下請けの開発ベンダの取りまとめと、プログラムの品質チェックも行いました。</p>
-        <details class="job-detail">
-          <summary>担当した作業と導入機器</summary>
-          <ul>
-            <li>顧客との要件確認、現地調査、スケジュール管理、機器の発注</li>
-            <li>導入前の動作確認（TV会議端末とオーディオ機器）と接続試験（TV会議どうし、TV会議とWebex）</li>
-            <li>顧客・ベンダとの作業調整、現地作業資料（手順書、試験表、作業申請）の作成</li>
-            <li>現地作業の立会い・指示、部材の搬入搬出、設定投入、通信試験、正常性の確認</li>
-            <li>構築後のQA対応とベンダへのエスカレーション、完成図書（設計資料、マニュアル、試験表、コンフィグ等）の作成</li>
-          </ul>
-          <ul class="chips">
-            <li>Poly（旧）Group500</li>
-            <li>ClearOne 音声ミキサー</li>
-            <li>TAIDEN マイクユニット（言語切り替え用）</li>
-            <li>Panasonic レコーダー（会議音声録音用）</li>
-          </ul>
-        </details>
-      </div></li>
+      <li class="job">
+        <div>
+          <p class="period">2023年5月〜2024年3月（11ヶ月）</p>
+          <h3>医療系機構向けTV会議・同時翻訳システムの構築</h3>
+          <p class="meta">サブリーダー ・ チーム20名 / 全体20名 ・ Windows、Android</p>
+          <p>東京と関西の間で医薬系の相談を行うシステムです。Web会議も混ぜ、海外の顧客も参加するため、会議室に同時通訳システムを設置し、Webと会議室をつなぐハイブリッド会議を実現しました。全体の工程管理を担当し、下請けの開発ベンダの取りまとめと、プログラムの品質チェックも行いました。</p>
+          <details class="job-detail">
+            <summary>担当した作業と導入機器</summary>
+            <ul>
+              <li>顧客との要件確認、現地調査、スケジュール管理、機器の発注</li>
+              <li>導入前の動作確認（TV会議端末とオーディオ機器）と接続試験（TV会議どうし、TV会議とWebex）</li>
+              <li>顧客・ベンダとの作業調整、現地作業資料（手順書、試験表、作業申請）の作成</li>
+              <li>現地作業の立会い・指示、部材の搬入搬出、設定投入、通信試験、正常性の確認</li>
+              <li>構築後のQA対応とベンダへのエスカレーション、完成図書（設計資料、マニュアル、試験表、コンフィグ等）の作成</li>
+            </ul>
+            <ul class="chips">
+              <li>Poly（旧）Group500</li>
+              <li>ClearOne 音声ミキサー</li>
+              <li>TAIDEN マイクユニット（言語切り替え用）</li>
+              <li>Panasonic レコーダー（会議音声録音用）</li>
+            </ul>
+          </details>
+        </div>
+      </li>
 
-      <li class="job"><div>
-        <p class="period">2022年1月〜2023年7月（1年7ヶ月）</p>
-        <h3>官公庁向けTV会議システムの設置・構築</h3>
-        <p class="meta">サブリーダー ・ チーム15名 / 全体20名 ・ Windows、Android</p>
-        <p>本庁の会議室と各幹部の自宅にTV会議システムを設置し、リモートと会議室をつなぐ会議を実現しました。TV会議端末のキッティング、端末と多地点接続サーバーを組み合わせた統合試験、現地構築後の品質試験が主な業務です。導入後の2次問い合わせ（障害時のベンダ問い合わせと顧客への回答）も担当しました。</p>
-        <details class="job-detail">
-          <summary>担当した作業と導入機器</summary>
-          <ul>
-            <li>顧客との要件確認、現地調査、スケジュール管理、機器の発注</li>
-            <li>導入前の動作確認（TV会議端末）と接続試験（TV会議とサーバー）</li>
-            <li>顧客・ベンダとの作業調整、現地作業資料の作成、現地作業の立会い・指示</li>
-            <li>設定投入、通信試験、正常性の確認、構築後のQA対応とエスカレーション、完成図書の作成</li>
-          </ul>
-          <ul class="chips">
-            <li>Poly（旧）X30・X50・Group500</li>
-            <li>Poly（旧）多地点接続サーバー RMX</li>
-            <li>iPad Air</li>
-          </ul>
-        </details>
-      </div></li>
+      <li class="job">
+        <div>
+          <p class="period">2022年1月〜2023年7月（1年7ヶ月）</p>
+          <h3>官公庁向けTV会議システムの設置・構築</h3>
+          <p class="meta">サブリーダー ・ チーム15名 / 全体20名 ・ Windows、Android</p>
+          <p>本庁の会議室と各幹部の自宅にTV会議システムを設置し、リモートと会議室をつなぐ会議を実現しました。TV会議端末のキッティング、端末と多地点接続サーバーを組み合わせた統合試験、現地構築後の品質試験が主な業務です。導入後の2次問い合わせ（障害時のベンダ問い合わせと顧客への回答）も担当しました。</p>
+          <details class="job-detail">
+            <summary>担当した作業と導入機器</summary>
+            <ul>
+              <li>顧客との要件確認、現地調査、スケジュール管理、機器の発注</li>
+              <li>導入前の動作確認（TV会議端末）と接続試験（TV会議とサーバー）</li>
+              <li>顧客・ベンダとの作業調整、現地作業資料の作成、現地作業の立会い・指示</li>
+              <li>設定投入、通信試験、正常性の確認、構築後のQA対応とエスカレーション、完成図書の作成</li>
+            </ul>
+            <ul class="chips">
+              <li>Poly（旧）X30・X50・Group500</li>
+              <li>Poly（旧）多地点接続サーバー RMX</li>
+              <li>iPad Air</li>
+            </ul>
+          </details>
+        </div>
+      </li>
 
-      <li class="job"><div>
-        <p class="period">2018年8月〜2019年8月（1年1ヶ月）</p>
-        <h3>ネットワークの運用監視</h3>
-        <p class="meta">チーム8名 / 全体10名 ・ Windows</p>
-        <p>Cisco製品を中心としたNW機器を、24時間365日で運用監視しました。定期的なPingの疎通確認、障害時のログ取得、原因の究明と復旧作業（一次切り分け、ベンダへのエスカレーション）、監視ツールZabbixでの状況監視とアラート発生時の原因調査を担当しました。英語圏のユーザーもいたため、英語でのメール・電話対応（メール9割、電話1割）も経験しました。</p>
-      </div></li>
+      <li class="job">
+        <div>
+          <p class="period">2018年8月〜2019年8月（1年1ヶ月）</p>
+          <h3>ネットワークの運用監視</h3>
+          <p class="meta">チーム8名 / 全体10名 ・ Windows</p>
+          <p>Cisco製品を中心としたNW機器を、24時間365日で運用監視しました。定期的なPingの疎通確認、障害時のログ取得、原因の究明と復旧作業（一次切り分け、ベンダへのエスカレーション）、監視ツールZabbixでの状況監視とアラート発生時の原因調査を担当しました。英語圏のユーザーもいたため、英語でのメール・電話対応（メール9割、電話1割）も経験しました。</p>
+        </div>
+      </li>
     </ol>
   </section>
 
