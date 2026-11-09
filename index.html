@@ -5,63 +5,65 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>O.R ポートフォリオ | インフラエンジニア</title>
 <meta name="description" content="O.Rのポートフォリオです。ネットワーク運用監視、TV会議システムの導入・構築、データベース運用の経験をまとめています。">
+
 <style>
 :root {
-  --bg: #f5f7fa;
-  --surface: #ffffff;
-  --ink: #16202e;
-  --muted: #55606e;
-  --line: #d9dfe7;
-  --accent: #0b6e99;
-  --soft: #e1f1f7;
-  --todo: #fff1c7;
-  --todo-ink: #6b4b00;
-  --glow1: rgba(11, 110, 153, 0.16);
-  --glow2: rgba(46, 160, 140, 0.12);
-  --grid: rgba(22, 32, 46, 0.05);
-  --dot: rgba(11, 110, 153, 0.38);
-  --bar: rgba(255, 255, 255, 0.82);
-  --shadow: 0 1px 2px rgba(16, 24, 40, 0.05), 0 10px 28px rgba(16, 24, 40, 0.06);
-  color-scheme: light;
+  --bg: #101114;
+  --surface: #1b1d22;
+  --ink: #f5f5f5;
+  --muted: #a1a1aa;
+  --line: #33363d;
+  --accent: #ff8a00;
+  --soft: #3a2818;
+  --todo: #3b2d16;
+  --todo-ink: #ffc15c;
+  --glow1: rgba(255, 138, 0, 0.18);
+  --glow2: rgba(255, 95, 0, 0.10);
+  --grid: rgba(255, 255, 255, 0.035);
+  --dot: rgba(255, 138, 0, 0.5);
+  --bar: rgba(20, 21, 25, 0.92);
+  --shadow: 0 4px 18px rgba(0, 0, 0, 0.35);
+  color-scheme: dark;
 }
 
+/* ダークモードもオレンジ基調に統一 */
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
-    --bg: #0f1620;
-    --surface: #17212e;
-    --ink: #e8edf3;
-    --muted: #9aa7b6;
-    --line: #2b3847;
-    --accent: #4cc2e8;
-    --soft: #12303c;
-    --todo: #3b3115;
-    --todo-ink: #ffd37a;
-    --glow1: rgba(76, 194, 232, 0.16);
-    --glow2: rgba(70, 110, 255, 0.14);
-    --grid: rgba(255, 255, 255, 0.045);
-    --dot: rgba(76, 194, 232, 0.5);
-    --bar: rgba(23, 33, 46, 0.8);
-    --shadow: 0 10px 28px rgba(0, 0, 0, 0.28);
+    --bg: #101114;
+    --surface: #1b1d22;
+    --ink: #f5f5f5;
+    --muted: #a1a1aa;
+    --line: #33363d;
+    --accent: #ff8a00;
+    --soft: #3a2818;
+    --todo: #3b2d16;
+    --todo-ink: #ffc15c;
+    --glow1: rgba(255, 138, 0, 0.18);
+    --glow2: rgba(255, 95, 0, 0.10);
+    --grid: rgba(255, 255, 255, 0.035);
+    --dot: rgba(255, 138, 0, 0.5);
+    --bar: rgba(20, 21, 25, 0.92);
+    --shadow: 0 4px 18px rgba(0, 0, 0, 0.35);
     color-scheme: dark;
   }
 }
 
 :root[data-theme="dark"] {
-  --bg: #0f1620;
-  --surface: #17212e;
-  --ink: #e8edf3;
-  --muted: #9aa7b6;
-  --line: #2b3847;
-  --accent: #4cc2e8;
-  --soft: #12303c;
-  --todo: #3b3115;
-  --todo-ink: #ffd37a;
-  --glow1: rgba(76, 194, 232, 0.16);
-  --glow2: rgba(70, 110, 255, 0.14);
-  --grid: rgba(255, 255, 255, 0.045);
-  --dot: rgba(76, 194, 232, 0.5);
-  --bar: rgba(23, 33, 46, 0.8);
-  --shadow: 0 10px 28px rgba(0, 0, 0, 0.28);
+  --bg: #101114;
+  --surface: #1b1d22;
+  --ink: #f5f5f5;
+  --muted: #a1a1aa;
+  --line: #33363d;
+  --accent: #ff8a00;
+  --soft: #3a2818;
+  --todo: #3b2d16;
+  --todo-ink: #ffc15c;
+  --glow1: rgba(255, 138, 0, 0.18);
+  --glow2: rgba(255, 95, 0, 0.10);
+  --grid: rgba(255, 255, 255, 0.035);
+  --dot: rgba(255, 138, 0, 0.5);
+  --bar: rgba(20, 21, 25, 0.92);
+  --shadow: 0 4px 18px rgba(0, 0, 0, 0.35);
   color-scheme: dark;
 }
 
@@ -224,15 +226,12 @@ p {
 }
 
 .avatar {
-  display: grid;
-  place-items: center;
+  display: block;
   width: 160px;
   height: 160px;
   border-radius: 50%;
+  object-fit: cover;
   background: var(--soft);
-  color: var(--accent);
-  font-size: 2rem;
-  font-weight: 700;
   box-shadow: 0 0 0 6px var(--soft), 0 0 0 7px var(--line);
 }
 
@@ -445,32 +444,16 @@ details ul {
   background: linear-gradient(160deg, var(--soft), transparent);
 }
 
-.app-preview {
-  display: grid;
-  place-items: center;
-  width: min(100%, 210px);
-  aspect-ratio: 390 / 500;
-  padding: 20px;
+/* 筋トレメモの実際の画面画像 */
+.work-image {
+  display: block;
+  width: 100%;
+  max-width: 240px;
+  max-height: 340px;
+  object-fit: contain;
   border: 1px solid var(--line);
-  border-radius: 22px;
-  background:
-    radial-gradient(circle at 75% 25%, var(--glow1), transparent 35%),
-    var(--surface);
-  box-shadow: 0 14px 34px rgba(0, 0, 0, 0.18);
-  text-align: center;
-}
-
-.app-preview strong {
-  display: block;
-  color: var(--accent);
-  font-size: 1.3rem;
-}
-
-.app-preview span {
-  display: block;
-  margin-top: 8px;
-  color: var(--muted);
-  font-size: 0.85rem;
+  border-radius: 12px;
+  box-shadow: var(--shadow);
 }
 
 .cap {
@@ -478,6 +461,13 @@ details ul {
   color: var(--muted);
   font-size: 0.8rem;
   text-align: center;
+}
+
+/* ポートフォリオ用ダンベルアイコン */
+.portfolio-icon {
+  width: 64px;
+  height: 64px;
+  color: var(--accent);
 }
 
 footer {
@@ -499,7 +489,6 @@ footer {
     width: 112px;
     height: 112px;
     margin: 7px;
-    font-size: 1.5rem;
   }
 
   .skills li {
@@ -522,6 +511,7 @@ footer {
 }
 </style>
 </head>
+
 <body>
 <div class="bg" aria-hidden="true"></div>
 
@@ -540,16 +530,20 @@ footer {
 
 <main>
   <section id="profile" class="hero">
-   <img
-  src="profile-light-weight-baby.png"
-  alt="LIGHT WEIGHT BABY"
-  class="avatar"
->
+    <img
+      src="profile-light-weight-baby.png"
+      alt="LIGHT WEIGHT BABY"
+      class="avatar"
+    >
+
     <div>
       <h1>O.R のポートフォリオ</h1>
       <p class="role">インフラエンジニア（ネットワーク・TV会議システム）</p>
+
       <p>はじめまして、O.Rです。ネットワークの運用監視、TV会議システムの導入・構築、データベースの運用、NW機器の保守対応を経験してきました。</p>
-      <p>現場では、顧客との要件確認、現地調査、機器の設置と通信試験、完成図書の作成まで、一通りの工程を担当しました。サブリーダーとして、工程管理や下請けベンダの取りまとめも経験しています。最近は、HTML/CSS/JavaScriptで個人制作のWebアプリ（筋トレメモ）も作りました。</p>
+
+      <p>現場では、顧客との要件確認、現地調査、機器の設置と通信試験、完成図書の作成まで、一通りの工程を担当しました。サブリーダーとして、工程管理や下請けベンダの取りまとめも経験しています。最近は、AIを活用しながらHTML/CSS/JavaScriptによる個人制作のWebアプリ（筋トレメモ）にも取り組みました。</p>
+
       <ul class="facts">
         <li>大規模新築ビルの会議室に、TV会議端末を<b>250台以上</b>設置し、ZoomとGoogle Meetで通信試験</li>
         <li>医療系機構向けのTV会議・同時通訳システムを、サブリーダーとして工程管理（チーム20名）</li>
@@ -567,9 +561,9 @@ footer {
     <div class="group">
       <h3>ネットワーク・運用監視</h3>
       <p>Cisco製品を中心とした運用監視と、H3C無線機器の保守対応を経験しました。</p>
+
       <ul class="skills">
         <li><span>NW運用監視</span><span class="term">1年1ヶ月</span><span class="meter"><i style="--w:43%"></i></span></li>
-        <li><span>Zabbix</span><span class="term">1年1ヶ月</span><span class="meter"><i style="--w:43%"></i></span></li>
         <li><span>Teraterm</span><span class="term">1年7ヶ月</span><span class="meter"><i style="--w:63%"></i></span></li>
         <li><span>Wireshark</span><span class="term">4ヶ月</span><span class="meter"><i style="--w:13%"></i></span></li>
         <li><span>H3C無線機器（Comware V7）の保守対応</span><span class="term">6ヶ月</span><span class="meter"><i style="--w:20%"></i></span></li>
@@ -579,6 +573,7 @@ footer {
     <div class="group">
       <h3>TV会議・AV機器</h3>
       <p>導入前の動作確認から、現地での設定投入、通信試験、完成図書の作成までを担当しました。</p>
+
       <ul class="skills">
         <li><span>TV会議導入支援</span><span class="term">2年5ヶ月</span><span class="meter"><i style="--w:97%"></i></span></li>
         <li><span>Poly（旧）Group500・X30・X50・RMX</span><span class="term na">期間の記載なし</span><span></span></li>
@@ -590,6 +585,7 @@ footer {
     <div class="group">
       <h3>データベース</h3>
       <p>自治体向けの住民情報データベースの運用を経験しました。</p>
+
       <ul class="skills">
         <li><span>SQL</span><span class="term">6ヶ月</span><span class="meter"><i style="--w:20%"></i></span></li>
         <li><span>データベース運用（SQL Server）</span><span class="term">6ヶ月</span><span class="meter"><i style="--w:20%"></i></span></li>
@@ -601,7 +597,7 @@ footer {
       <ul class="skills">
         <li><span>Android</span><span class="term">2年5ヶ月</span><span class="meter"><i style="--w:97%"></i></span></li>
         <li><span>Windows</span><span class="term na">期間の記載なし</span><span></span></li>
-        <li><span>HTML / CSS / JavaScript</span><span class="term na">個人制作（筋トレメモ）</span><span></span></li>
+        <li><span>HTML / CSS / JavaScript</span><span class="term na">個人制作（AI活用）</span><span></span></li>
         <li><span>英語でのメール・電話対応（NW運用監視の案件）</span><span class="term na">メール9割・電話1割</span><span></span></li>
       </ul>
     </div>
@@ -617,6 +613,7 @@ footer {
   <section id="experience">
     <h2>業務経歴</h2>
     <p>新しい案件から順に載せています。顧客名は伏せています。</p>
+
     <ol class="jobs">
       <li class="job">
         <div>
@@ -651,6 +648,7 @@ footer {
           <h3>医療系機構向けTV会議・同時翻訳システムの構築</h3>
           <p class="meta">サブリーダー ・ チーム20名 / 全体20名 ・ Windows、Android</p>
           <p>東京と関西の間で医薬系の相談を行うシステムです。Web会議も混ぜ、海外の顧客も参加するため、会議室に同時通訳システムを設置し、Webと会議室をつなぐハイブリッド会議を実現しました。全体の工程管理を担当し、下請けの開発ベンダの取りまとめと、プログラムの品質チェックも行いました。</p>
+
           <details class="job-detail">
             <summary>担当した作業と導入機器</summary>
             <ul>
@@ -660,6 +658,7 @@ footer {
               <li>現地作業の立会い・指示、部材の搬入搬出、設定投入、通信試験、正常性の確認</li>
               <li>構築後のQA対応とベンダへのエスカレーション、完成図書（設計資料、マニュアル、試験表、コンフィグ等）の作成</li>
             </ul>
+
             <ul class="chips">
               <li>Poly（旧）Group500</li>
               <li>ClearOne 音声ミキサー</li>
@@ -676,6 +675,7 @@ footer {
           <h3>官公庁向けTV会議システムの設置・構築</h3>
           <p class="meta">サブリーダー ・ チーム15名 / 全体20名 ・ Windows、Android</p>
           <p>本庁の会議室と各幹部の自宅にTV会議システムを設置し、リモートと会議室をつなぐ会議を実現しました。TV会議端末のキッティング、端末と多地点接続サーバーを組み合わせた統合試験、現地構築後の品質試験が主な業務です。導入後の2次問い合わせ（障害時のベンダ問い合わせと顧客への回答）も担当しました。</p>
+
           <details class="job-detail">
             <summary>担当した作業と導入機器</summary>
             <ul>
@@ -684,6 +684,7 @@ footer {
               <li>顧客・ベンダとの作業調整、現地作業資料の作成、現地作業の立会い・指示</li>
               <li>設定投入、通信試験、正常性の確認、構築後のQA対応とエスカレーション、完成図書の作成</li>
             </ul>
+
             <ul class="chips">
               <li>Poly（旧）X30・X50・Group500</li>
               <li>Poly（旧）多地点接続サーバー RMX</li>
@@ -698,7 +699,7 @@ footer {
           <p class="period">2018年8月〜2019年8月（1年1ヶ月）</p>
           <h3>ネットワークの運用監視</h3>
           <p class="meta">チーム8名 / 全体10名 ・ Windows</p>
-          <p>Cisco製品を中心としたNW機器を、24時間365日で運用監視しました。定期的なPingの疎通確認、障害時のログ取得、原因の究明と復旧作業（一次切り分け、ベンダへのエスカレーション）、監視ツールZabbixでの状況監視とアラート発生時の原因調査を担当しました。英語圏のユーザーもいたため、英語でのメール・電話対応（メール9割、電話1割）も経験しました。</p>
+          <p>Cisco製品を中心としたNW機器を、24時間365日で運用監視しました。定期的なPingの疎通確認、障害時のログ取得、原因の究明と復旧作業（一次切り分け、ベンダへのエスカレーション）を担当しました。英語圏のユーザーもいたため、英語でのメール・電話対応（メール9割、電話1割）も経験しました。</p>
         </div>
       </li>
     </ol>
@@ -706,17 +707,18 @@ footer {
 
   <section id="works">
     <h2>制作物</h2>
+
     <div class="works">
       <article class="work feature">
         <div class="thumb">
-          <div class="app-preview" role="img" aria-label="筋トレメモアプリのイメージ">
-            <div>
-              <strong>筋トレメモ</strong>
-              <span>トレーニング・体重・食事を記録</span>
-            </div>
-          </div>
+          <img
+            src="kintore-home.png"
+            alt="筋トレメモアプリのホーム画面"
+            class="work-image"
+          >
           <p class="cap">筋トレメモ Webアプリ</p>
         </div>
+
         <div>
           <h3>筋トレメモ</h3>
           <p>トレーニング・体重・食事を1か所で記録し、前回との比較やカロリー収支まで確認できるWebアプリです。セットの種類（メイン・ウォームアップ・ドロップ）の区別、推定1RM、食品データからのカロリー・PFCの自動計算、グラフ表示ができます。</p>
@@ -730,12 +732,38 @@ footer {
       </article>
 
       <article class="work">
-        <div class="thumb">このサイト</div>
+        <div class="thumb">
+          <svg
+            class="portfolio-icon"
+            viewBox="0 0 64 64"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+            aria-hidden="true"
+          >
+            <g
+              stroke="currentColor"
+              stroke-width="4"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path d="M8 24V40" />
+              <path d="M16 18V46" />
+              <path d="M24 26V38" />
+              <path d="M40 26V38" />
+              <path d="M48 18V46" />
+              <path d="M56 24V40" />
+              <path d="M16 32H48" />
+            </g>
+          </svg>
+        </div>
+
         <div>
-          <h3>このポートフォリオ</h3>
-          <p>スキルシートの内容をもとに作ったポートフォリオです。ライトモードとダークモードの両方に対応しています。</p>
+          <h3>自分自身のポートフォリオ</h3>
+          <p>これまでの業務経験やスキル、個人制作物をまとめたポートフォリオです。</p>
           <p>HTML / CSS</p>
-          <p><a href="https://github.com/Ryosuke-Tech/my-portfolio" target="_blank" rel="noopener noreferrer">ソースコード（GitHub）</a></p>
+          <p>
+            <a href="https://github.com/Ryosuke-Tech/my-portfolio" target="_blank" rel="noopener noreferrer">ソースコード（GitHub）</a>
+          </p>
         </div>
       </article>
     </div>
@@ -758,5 +786,6 @@ footer {
   </nav>
   <p>Copyright © O.R. All Rights Reserved.</p>
 </footer>
+
 </body>
 </html>
